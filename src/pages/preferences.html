@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Preferences</title>
+    <link rel="stylesheet" type="text/css" href="//d2uzvmey2c90kn.cloudfront.net/pure-min-0.5.0.css">
+    <link rel="stylesheet" type="text/css" href="https://d2uzvmey2c90kn.cloudfront.net/assets/41/main.css">
+  </head>
+  <body>
+    <div class="nav">
+      <a class="left navlink" href="/podcasts"><img class="narrow" id="tinyhomeimg" src="https://overcast.fm/img/logo.svg" alt="Overcast"><span class="notnarrow">Overcast</span></a>
+      <a class="left navlink" href="/account">Account</a>
+      <div class="right pure-form search_container">
+        <input type="text" name="q" placeholder="Search Podcasts" id="ocpodcastsearch" class="podcastsearchbox pure-input-rounded" data-autocomplete-target="" autocomplete="off">
+        <div id="autocomplete_container">
+          <div id="autocomplete_results"></div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div> <!-- end .nav -->
+
+    <div class="content">
+      <div class="preferences-container">
+      </div>
+    </div>
+
+    <script>
+      const settings = require('electron-settings')
+
+      function setSetting(setting) {
+        const currentValue = getSetting(setting)
+        const value = currentValue ? !currentValue : true
+        settings.set(setting, value)
+        window.location.reload()
+      }
+
+      function getSetting(setting) {
+        return settings.get(setting)
+      }
+
+      function loadSettings() {
+        const allSettings = settings.getAll()
+        const keys = Object.keys(allSettings)
+        keys.forEach(key => {
+          const setting = document.querySelector(`.${key}`)
+          if (setting.type === 'checkbox') {
+            setting.checked = allSettings[key]
+          } else {
+            setting.value = allSettings[key]
+          }
+        })
+      }
+
+      loadSettings()
+    </script>
+  </body>
+</html>

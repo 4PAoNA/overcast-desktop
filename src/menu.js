@@ -19,6 +19,14 @@ const menu = [
         type: 'separator'
       },
       {
+        label: 'Preferences',
+        accelerator: 'Cmd+,',
+        click() {
+          const win = electron.BrowserWindow.getAllWindows()[0]
+          win.loadURL(`file://${__dirname}/pages/preferences.html`)
+        }
+      },
+      {
         label: 'Services',
         role: 'services',
         submenu: []

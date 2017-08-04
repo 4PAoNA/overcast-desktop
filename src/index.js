@@ -2,8 +2,10 @@ const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const path = require('path')
+const fs = require('fs')
 const url = require('url')
 const menu = require('./menu')
+const settings = require('electron-settings')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -22,6 +24,12 @@ function createWindow () {
 
   // Open the DevTools.
   win.webContents.openDevTools()
+
+  win.webContents.on('did-finish-load', () => {
+    if (settings.get('dark-mode') === true) {
+      win.webContents.insertCSS(fs.readFileSync(path.join(__dirname, 'styles/style.css'), 'utf8'))
+    }
+  })
 
   // Emitted when the window is closed.
   win.on('closed', () => {

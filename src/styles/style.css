@@ -1,0 +1,16 @@
+body {
+  color: #e0e0e0 !important;
+  background: #333 !important;
+}
+
+.art {
+  border-color: #222 !important;
+}
+
+.feedcell, .episodecell {
+  color: #e0e0e0 !important;
+}
+
+.caption2 {
+  color: #aaa !important;
+}

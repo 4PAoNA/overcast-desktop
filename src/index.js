@@ -56,7 +56,7 @@ function createTray () {
 app.on('ready', () => {
   electron.Menu.setApplicationMenu(menu.build())
   createWindow()
-  createTray()
+  if (settings.get('tray-icon')) createTray()
 })
 
 // Quit when all windows are closed.

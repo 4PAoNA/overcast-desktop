@@ -44,8 +44,25 @@ function createTray () {
   tray = new Tray(path.join(__dirname, 'assets/images/logo.png'))
   tray.setPressedImage(path.join(__dirname, 'assets/images/logo-pressed.png'))
   const contextMenu = Menu.buildFromTemplate([
-    {label: 'Item1', type: 'radio'},
-    {label: 'Item2', type: 'radio'}
+    {
+      label: 'Show Overcast',
+      click() {
+        if (!win) {
+          createWindow()
+        } else {
+          win.focus()
+        }
+      }
+    },
+    {
+      label: 'Preferences',
+      accelerator: 'Cmd+,',
+      click() {
+        const window = electron.BrowserWindow.getAllWindows()[0]
+        if (!window) createWindow()
+        win.loadURL(`file://${__dirname}/pages/preferences.html`)
+      }
+    }
   ])
   tray.setContextMenu(contextMenu)
 }

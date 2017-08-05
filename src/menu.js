@@ -1,6 +1,7 @@
 const electron = require('electron')
 const app = electron.app
 const appName = app.getName()
+const isDev = require('electron-is-dev')
 
 function emit(action) {
   const win = electron.BrowserWindow.getAllWindows()[0]
@@ -97,6 +98,18 @@ const menu = [
     ]
   }
 ]
+
+// allow toggling of DevTools if in dev environment
+if (isDev) {
+  menu[1].submenu.push({
+    label: 'Show DevTools',
+    accelerator: 'Cmd+Alt+I',
+    click() {
+      const win = electron.BrowserWindow.getAllWindows()[0]
+      win.webContents.toggleDevTools()
+    }
+  })
+}
 
 exports.build = () => {
   return electron.Menu.buildFromTemplate(menu)

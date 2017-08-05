@@ -11,6 +11,6 @@ Electron wrapper for Overcast.fm. There is no dist version of the app yet. To ru
 * preferences including dark mode
 
 ## Future Possibilities
-* always-on-top miniplayer
+* ~~always-on-top~~ miniplayer (always-on-top now exists, miniplayer is still a future possibility)
 * own OS media keys
 * need a name

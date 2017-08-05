@@ -101,5 +101,8 @@ ipcMain.on('setting-change', (event, setting, value) => {
     case 'tray-icon':
       (tray && tray.isDestroyed()) ? createTray() : tray.destroy()
       break;
+    case 'always-on-top':
+      win.setAlwaysOnTop(value)
+      break;
   }
 })

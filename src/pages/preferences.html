@@ -33,12 +33,15 @@
     </div>
 
     <script>
+      const electron = require('electron')
+      const ipc = electron.ipcRenderer
       const settings = require('electron-settings')
 
       function setSetting(setting) {
         const currentValue = getSetting(setting)
         const value = currentValue ? !currentValue : true
         settings.set(setting, value)
+        ipc.send('setting-change', setting, value)
         window.location.reload()
       }
 

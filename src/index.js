@@ -1,5 +1,5 @@
 const electron = require('electron')
-const { app, BrowserWindow, Menu, Tray, nativeImage } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeImage, ipcMain } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const url = require('url')
@@ -73,5 +73,13 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
     createWindow()
+  }
+})
+
+ipcMain.on('setting-change', (event, setting, value) => {
+  switch (setting) {
+    case 'tray-icon':
+      (tray && tray.isDestroyed()) ? createTray() : tray.destroy()
+      break;
   }
 })

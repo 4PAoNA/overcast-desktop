@@ -9,6 +9,7 @@ const settings = require('electron-settings')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+let tray
 
 function createWindow () {
   win = new BrowserWindow({
@@ -40,7 +41,7 @@ function createWindow () {
 }
 
 function createTray () {
-  const tray = new Tray(path.join(__dirname, 'assets/images/logo.png'))
+  tray = new Tray(path.join(__dirname, 'assets/images/logo.png'))
   tray.setPressedImage(path.join(__dirname, 'assets/images/logo-pressed.png'))
   const contextMenu = Menu.buildFromTemplate([
     {label: 'Item1', type: 'radio'},

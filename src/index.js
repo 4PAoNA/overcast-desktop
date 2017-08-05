@@ -95,6 +95,9 @@ app.on('activate', () => {
 
 ipcMain.on('setting-change', (event, setting, value) => {
   switch (setting) {
+    case 'dark-mode':
+      win.webContents.reload()
+      break;
     case 'tray-icon':
       (tray && tray.isDestroyed()) ? createTray() : tray.destroy()
       break;

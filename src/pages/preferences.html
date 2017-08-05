@@ -42,7 +42,6 @@
         const value = currentValue ? !currentValue : true
         settings.set(setting, value)
         ipc.send('setting-change', setting, value)
-        window.location.reload()
       }
 
       function getSetting(setting) {

@@ -104,5 +104,7 @@ ipcMain.on('setting-change', (event, setting, value) => {
     case 'always-on-top':
       win.setAlwaysOnTop(value)
       break;
+    default:
+      break;
   }
 })

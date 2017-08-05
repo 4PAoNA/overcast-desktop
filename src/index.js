@@ -39,12 +39,23 @@ function createWindow () {
   })
 }
 
+function createTray () {
+  const tray = new Tray(path.join(__dirname, 'assets/images/logo.png'))
+  tray.setPressedImage(path.join(__dirname, 'assets/images/logo-pressed.png'))
+  const contextMenu = Menu.buildFromTemplate([
+    {label: 'Item1', type: 'radio'},
+    {label: 'Item2', type: 'radio'}
+  ])
+  tray.setContextMenu(contextMenu)
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   electron.Menu.setApplicationMenu(menu.build())
   createWindow()
+  createTray()
 })
 
 // Quit when all windows are closed.

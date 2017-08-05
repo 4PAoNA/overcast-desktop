@@ -1,6 +1,5 @@
 const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
+const { app, BrowserWindow, Menu, Tray, nativeImage } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const url = require('url')

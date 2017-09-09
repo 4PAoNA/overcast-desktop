@@ -54,6 +54,7 @@
     <script>
       const electron = require('electron')
       const ipc = electron.ipcRenderer
+      const shell = electron.shell
       const settings = require('electron-settings')
 
       function setSetting(setting) {
@@ -79,6 +80,13 @@
           }
         })
       }
+
+      document.querySelectorAll('.link-external').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault()
+          shell.openExternal(e.target.href)
+        })
+      })
 
       loadSettings()
     </script>

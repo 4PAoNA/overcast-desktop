@@ -1,5 +1,5 @@
 const electron = require('electron')
-const { app, BrowserWindow, Menu, Tray, nativeImage, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeImage, ipcMain, globalShortcut } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const url = require('url')
@@ -67,6 +67,23 @@ function createTray () {
   tray.setContextMenu(contextMenu)
 }
 
+const mediaKeys = {
+  bind: function() {
+    globalShortcut.register('MediaNextTrack', () => { this.bindKeyToID('seekforwardbutton') })
+    globalShortcut.register('MediaPreviousTrack', () => { this.bindKeyToID('seekbackbutton') })
+    globalShortcut.register('MediaPlayPause', () => { this.bindKeyToID('playpausebutton') })
+    globalShortcut.register('MediaStop', () => { this.bindKeyToID('playpausebutton') })
+  },
+
+  unbind: function() {
+    globalShortcut.unregisterAll()
+  },
+
+  bindKeyToID: function(id) {
+    win.webContents.executeJavaScript(`document.querySelector('#${id}').click()`)
+  }
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -74,6 +91,7 @@ app.on('ready', () => {
   electron.Menu.setApplicationMenu(menu.build())
   createWindow()
   if (settings.get('tray-icon')) createTray()
+  if (settings.get('bind-media-keys')) mediaKeys.bind()
 })
 
 // Quit when all windows are closed.
@@ -93,6 +111,10 @@ app.on('activate', () => {
   }
 })
 
+app.on('will-quit', () => {
+  mediaKeys.unbind()
+})
+
 ipcMain.on('setting-change', (event, setting, value) => {
   switch (setting) {
     case 'dark-mode':
@@ -104,6 +126,8 @@ ipcMain.on('setting-change', (event, setting, value) => {
     case 'always-on-top':
       win.setAlwaysOnTop(value)
       break;
+    case 'bind-media-keys':
+      value ? mediaKeys.bind() : mediaKeys.unbind()
     default:
       break;
   }

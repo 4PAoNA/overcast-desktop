@@ -1,5 +1,13 @@
 const electron = require('electron')
-const { app, BrowserWindow, Menu, Tray, nativeImage, ipcMain, globalShortcut } = require('electron')
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  Tray,
+  nativeImage,
+  ipcMain,
+  globalShortcut
+} = require('electron')
 const path = require('path')
 const fs = require('fs')
 const url = require('url')

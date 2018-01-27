@@ -129,7 +129,7 @@ ipcMain.on('setting-change', (event, setting, value) => {
       win.webContents.reload()
       break;
     case 'tray-icon':
-      (tray && tray.isDestroyed()) ? createTray() : tray.destroy()
+      (tray ? (tray.isDestroyed() ? createTray() : tray.destroy()) : createTray())
       break;
     case 'always-on-top':
       win.setAlwaysOnTop(value)

@@ -13,6 +13,7 @@ const fs = require('fs')
 const url = require('url')
 const menu = require('./menu')
 const settings = require('electron-settings')
+const isDev = require('electron-is-dev')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -31,7 +32,9 @@ function createWindow () {
   win.loadURL('https://overcast.fm/')
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  if (isDev) {
+    win.webContents.openDevTools()
+  }
 
   win.webContents.on('did-finish-load', () => {
     if (settings.get('dark-mode') === true) {

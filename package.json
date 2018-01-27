@@ -3,18 +3,27 @@
   "productName": "Overcast Desktop",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ./src"
+    "start": "electron ./src",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.7.6"
+    "electron": "^1.7.6",
+    "electron-builder": "^19.55.2"
   },
   "dependencies": {
     "electron-is-dev": "^0.3.0",
     "electron-settings": "^3.1.1"
+  },
+  "build": {
+    "appId": "com.brandondean.overcastdesktop",
+    "mac": {
+      "category": "public.app-category.entertainment"
+    }
   }
 }

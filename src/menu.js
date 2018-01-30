@@ -94,6 +94,16 @@ const menu = [
         click() {
           emit('goto-account')
         }
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Reload Page',
+        accelerator: 'Cmd+R',
+        click() {
+          emit('reload-page')
+        }
       }
     ]
   }

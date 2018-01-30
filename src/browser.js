@@ -23,3 +23,7 @@ ipc.on('goto-podcasts', () => {
 ipc.on('goto-account', () => {
   window.location = 'https://overcast.fm/account'
 })
+
+ipc.on('reload-page', () => {
+  window.location.reload()
+})
